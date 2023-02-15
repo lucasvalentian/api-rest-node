@@ -9,7 +9,7 @@ const validarJWT= async(req=request,res=response,next)=>{
          token = req.headers.authorization.split(" ")[1];
        
     }*/
-    const token=req.header('Authorization').split(" ")[1];
+    const token=req.header('Authorization')?.split(" ")[1];
     //console.log(req.header('Authorization'));
 
     if(!token){

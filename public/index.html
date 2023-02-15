@@ -5,72 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    
 </head>
 <body>
 
-    <h1>Goole accounts</h1>
-    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
 
-        <div id="g_id_onload"
-        data-client_id="594296192118-d2nti5aj17lqtl7tt1emvb62k1cbsk34.apps.googleusercontent.com"
-        data-login_uri="http://localhost:8080"
-        data-auto_prompt="false"
-        data-callback="handleCredentialResponse"
-        >
+                <h1>Goole accounts</h1>
+                  <hr>
+
+                <div id="g_id_onload"
+                data-client_id="594296192118-d2nti5aj17lqtl7tt1emvb62k1cbsk34.apps.googleusercontent.com"
+                data-login_uri="http://localhost:8080"
+                data-auto_prompt="false"
+                data-callback="handleCredentialResponse"
+                >
+
+                </div>
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-size="large"
+                    data-theme="outline"
+                    data-text="sign_in_with"
+                    data-shape="rectangular"
+                    data-logo_alignment="left">
+                </div><br>  
+
+                    <button id="signout" class="btn btn-dark">
+                        Signout
+                    </button>
+
+            </div>
+            <div class="col-sm-6">
+                <br>
+
+                <h6>Formulario de autentificación</h6>
+                <form action="" method="post" class="d-grid">
+                    <input type="email" name="correo" class="form-control" required placeholder="Email"><br>
+                    <input type="password" name="password" class="form-control" required placeholder="Passwor"> <br>
+                    <button class="btn btn-info" >Login</button>
+
+                </form>
+
+
+            </div>
 
         </div>
-        <div class="g_id_signin"
-            data-type="standard"
-            data-size="large"
-            data-theme="outline"
-            data-text="sign_in_with"
-            data-shape="rectangular"
-            data-logo_alignment="left">
-        </div>
 
-        <button id="signout">
-            Signout
-        </button>
+    </div>
+
+    
     
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-
-    function handleCredentialResponse(response){
-
-        const body={id_token:response.credential};
-
-        fetch('http://localhost:8080/api/auth/google',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(body)
-        })
-        .then(resp =>resp.json())
-        .then(resp=>{
-
-            localStorage.setItem('email',resp.usuario.correo)
-            console.log(resp);
-        }).catch(console.warn);
-      
-
-    }
-
-    const button=document.getElementById('signout');
-
-    button.onclick=()=>{
-
-        console.log(google.accounts.id);
-        google.accounts.id.disableAutoSelect();
-
-        google.accounts.id.revoke(localStorage.getItem('email'), done=>{
-
-            localStorage.clear();
-            location.reload();
-        })
-    }
-
-</script>
+<script src="./js/auth.js"></script>
 </html>

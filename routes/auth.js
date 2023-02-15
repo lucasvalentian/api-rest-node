@@ -1,8 +1,9 @@
 const { Router } = require("Express");
 const bodyParser = require("body-parser");
 const {check}=require('express-validator');
-const { login, googleSingIn } = require("../controllers/login.controller");
-const { validarCampos } = require("../middlewares/validar-compos");
+const { login, googleSingIn, renovarToken } = require("../controllers/login.controller");
+//const { validarCampos } = require("../middlewares/validar-compos");
+const { validarCampos, validarJWT } = require("../middlewares");
 
 const route=Router();
 const jsonParser = bodyParser.json();
@@ -20,7 +21,7 @@ route.post('/google',[jsonParser,
     ],googleSingIn);
     
 
-
+route.get('/',[validarJWT],renovarToken);
 
 
 module.exports=route;

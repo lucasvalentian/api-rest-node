@@ -1,7 +1,7 @@
 const {response,request}=require('express');
 const bcryptjs=require('bcryptjs');
 const Usuario=require('../models/usuario');
-const generarJWT = require('../helpers/generar-jwt');
+const {generarJWT} = require('../helpers/generar-jwt');
 const { googleverify } = require('../helpers/google-verify');
 
 
@@ -134,11 +134,25 @@ const googleSingIn=async(req=request,res=response)=>{
 
 
 }
+const renovarToken=async(req=request,res=response)=>{
+
+    const {usuarioToken}=req
+         //GENERAR EL TOKEN
+         const token=await generarJWT(usuarioToken.id);
+
+    res.json({
+        usuarioToken,
+        token
+    })
+
+}
 
 
 module.exports={
 
     login,
-    googleSingIn
+    googleSingIn,
+    renovarToken
+
 
 }
