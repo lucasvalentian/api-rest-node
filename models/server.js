@@ -59,7 +59,8 @@ class Server{
     }
 
     sockets(){
-        this.io.on("connection", SocketsController);
+        
+        this.io.on("connection",(socket)=> SocketsController(socket,this.io));
     }
 
     listen(){
